@@ -1,0 +1,287 @@
+public class MessagingHelper
+{
+      public static void SendLeadTotalRevenueBatchNotification(AsyncAPexJob jobinfo, Decimal totalleadrevenue)
+    {
+        if(jobinfo != null)
+        {
+            messaging.SingleEmailMessage email = new messaging.SingleEmailMessage();
+            string [] toaddress = new string[]{'manikantha.b4@gmail.com'};
+            email.setToAddresses(toaddress);
+            email.setSenderDisplayName('Bala M Nayak');
+            email.setSubject('Alert- Batchjobnotification id..'+jobinfo.Id);
+            string emailcontent = 'Dear Bala , <br/><br/>'+
+               					'here is bathc job status notification for the batch: updateaccountrecordbatch - '+jobinfo.Id+
+               					'<br/><br/>herer are bathcjob details.....<br/><br/>'+
+               						'  batch job id is...'+jobinfo.Id+
+               					'<br/> batch job name is....: total lead revenue ' +
+               					'<br/> batch job status is......  '+jobinfo.Status+
+               					'<br/> total number of bathces ...... '+jobinfo.TotalJobItems+
+               					'<br/> number of bathces processed ... '+jobinfo.JobItemsProcessed+
+               					'<br/> number of bathces failed.... '+jobinfo.NumberOfErrors+
+                				'<br/><b> total annual revenue is...'+totalleadrevenue+
+                                '</b><br/><br/> this is Auto-Generated Email. please do not reply. '+
+               					'<br/><br/> please contact below address below for any querys.<br/><br/>'+
+               					'Thanks ,<br/> Bala M Nayak ';
+            email.setHtmlBody(emailcontent);
+            messaging.sendEmail(new messaging.SingleEmailMessage[] {email});
+        }
+    }
+    public static void sendaccountbatchnotification(AsyncAPexJob jobinfo)
+    {
+        if(jobinfo != null)
+        {
+            messaging.SingleEmailMessage email = new messaging.SingleEmailMessage();
+            string [] toaddress = new string[]{'manikantha.b4@gmail.com'};
+            email.setToAddresses(toaddress);
+            email.setSenderDisplayName('Bala M Nayak');
+            email.setSubject('Alert- Batchjobnotification id..'+jobinfo.Id);
+            string emailcontent = 'Dear Bala , <br/><br/>'+
+               					'here is bathc job status notification for the batch: updateaccountrecordbatch - '+jobinfo.Id+
+               					'<br/><br/>herer are bathcjob details.....<br/><br/>'+
+               						'  batch job id is...'+jobinfo.Id+
+               					'<br/> batch job name is....: UpdateAccountReocrds ' +
+               					'<br/> batch job status is......  '+jobinfo.Status+
+               					'<br/> total number of bathces ...... '+jobinfo.TotalJobItems+
+               					'<br/> number of bathces processed ... '+jobinfo.JobItemsProcessed+
+               					'<br/> number of bathces failed.... '+jobinfo.NumberOfErrors+
+                                '<br/><br/> this is Auto-Generated Email. please do not reply. '+
+               					'<br/><br/> please contact below address below for any querys.<br/><br/>'+
+               					'Thanks ,<br/> Bala M Nayak ';
+            email.setHtmlBody(emailcontent);
+            messaging.sendEmail(new messaging.SingleEmailMessage[] {email});
+        }
+    }
+    public static void SendBatchjobNotifications(AsyncAPexJob jobinfo)
+    {
+        if(jobinfo != null)
+        {
+            messaging.SingleEmailMessage email = new messaging.SingleEmailMessage();
+            string[] Toaddress = new string[]{jobinfo.CreatedBy.email, 'bhookya.1774564.studenti.uniroma1.it'};
+                email.setReplyTo('manikantha.b4@gmail.com');
+            email.setSenderDisplayName('Bala M Nayak');
+            email.setSubject('Alert - Batch job,  AccountUpdateNotification ID:'+jobinfo.Id);
+            
+           string content = 'Dear Bala , <br/><br/>'+
+               					'here is bathc job status notification for the batch: updateaccountrecordbatch - '+jobinfo.Id+
+               					'<br/><br/>herer are bathcjob details.....<br/><br/>'+
+               						'  batch job id is...'+jobinfo.Id+
+               					'<br/> batch job name is....: UpdateAccountReocrds ' +
+               					'<br/> batch job status is......  '+jobinfo.Status+
+               					'<br/> total number of bathces ...... '+jobinfo.TotalJobItems+
+               					'<br/> number of bathces processed ... '+jobinfo.JobItemsProcessed+
+               					'<br/> number of bathces failed.... '+jobinfo.NumberOfErrors+
+                                '<br/><br/> this is Auto-Generated Email. please do not reply. '+
+               					'<br/><br/> please contact below address below for any querys.<br/><br/>'+
+               					'Thanks ,<br/> Bala M Nayak ';
+            email.setHtmlBody(content);
+            messaging.sendEmail( new messaging.SingleEmailMessage[] {email});
+        }
+    }
+    public static void SendmailtoAccount(list<account> lstacc)
+    {
+     list<messaging.SingleEmailMessage> lstemail = new list<messaging.SingleEmailMessage>();
+        if(!lstacc.isempty())
+        {
+           for(account acc : lstacc)
+           {
+                messaging.SingleEmailMessage  mail = new messaging.SingleEmailMessage();
+            string[] toaddress = new string[]{acc.Email_ID__c, 'bnsruthi8@gmail.com'};
+                mail.setToAddresses(toaddress);
+               mail.setSenderDisplayName('Bala M Nayak');
+               mail.setInReplyTo('bnsruthi8@gmail.com');
+               string mailcontent = 'Dear<b>' +acc.name+  '</b>Your Details Has Been saved in Database for spaming LOL<br/><br/>'+
+                   						'<b> Enni Sarlu Call Chesina Responce Undadhu</b><br/>'+
+                   							'<font color = "red"> Tu Sei Mia Vita, Ti Amo </font>'+
+                   						'Mankai Dula Ekkuva Kabatti, For Loop lo petta<br/><br/>'+
+                   						'<a href = "https://www.instagram.com/maniikantha_11/"> cilck here to follow me o insta </a>'+
+                   						'System generated mail kabatti Reply to  My num :-)<br/><br/>'+
+                   							'YOURS<br/>'+
+                   							'<b> Bala M Nayak</b><br/>'+
+                   							'<b> SFDC DEVELOPER</b>';
+               mail.setHtmlBody(mailcontent);
+               list<messaging.EmailFileAttachment> lstattachments = new list<messaging.EmailFileAttachment>();
+               messaging.EmailFileAttachment attachments = new messaging.EmailFileAttachment();
+               attachments.setContentType('application/pdf');
+               attachments.setFileName(acc.Name+'.pdf');
+               attachments.setBody(blob.toPdf(mailcontent));
+               lstattachments.add(attachments);
+               mail.setFileAttachments(lstattachments);
+               lstemail.add(mail);
+              
+            
+           }
+            if(!lstemail.isempty())
+            {
+                messaging.SendEmailResult[] result = messaging.sendEmail(lstemail);
+            }
+        }
+    }
+    public static void CreateAccountRecords(integer Maxrecords)
+    {
+        list<account> lstaccounts = new list<account>();
+        if(maxrecords>0)
+        {
+            for(integer counter =1 ; counter<=maxrecords; counter++)
+            {
+           account acc = new account();
+            acc.name = 'Sruthi Naidu';
+            acc.Active__c = 'yes';
+            acc.AnnualRevenue = 240000;
+            acc.Phone = '4087079408';
+            acc.Fax = '414692';
+           
+            acc.Email_ID__c = 'bnsruthi'+counter+'@gmail.com';
+                 lstaccounts.add(acc);
+            }
+            insert lstaccounts;
+            SendmailtoAccount(lstaccounts);
+
+        }
+            }
+    
+    public static void sendmailstoHr(list<HR_Manager__C> lsthr)
+    {
+        list<messaging.SingleEmailMessage> lstmail = new list<messaging.SingleEmailMessage>();
+        if(!lsthr.isempty())
+        {
+           for(HR_Manager__C Hr : lsthr)
+           {
+               messaging.SingleEmailMessage email = new messaging.SingleEmailMessage();
+               string[] toaddress = new string[]{hr.Email_ID__c, 'manikantha.b4@gmail.com'};
+                  email.setToAddresses(toaddress);
+              
+               email.setSenderDisplayName('Bala Uthama Villain');
+               email.setReplyTo('bhookya.1774564@studenti.uniroma1.it');
+               email.setSubject('Congratulations'+hr.Name+'your recordd has been created');
+               string emailcontent = 'Dear'+hr.Name+'thnaks for showing interest<br/><br/>'+
+                   						'your record created with below details <br/><br/>'+
+                   					'<b> Enni sarlu cheppali ph cheymani </b><br/><br/>'+
+                   					'**<br/> this is a system generated mail, LOOP lo petta... LOL kabatti reply to my number annamata';
+               email.setHtmlBody(emailcontent);
+               
+               list<messaging.EmailFileAttachment> lstattachments = new list<messaging.EmailFileAttachment>();
+               messaging.EmailFileAttachment attachments = new messaging.EmailFileAttachment();
+               attachments.setContentType('application/pdf');
+               attachments.setFileName(hr.Name+'.pdf');
+               attachments.setBody(blob.toPdf(emailcontent));
+               lstattachments.add(attachments);
+               email.setFileAttachments(lstattachments);
+               lstmail.add(email);
+               
+           }
+            if(!lstmail.isempty())
+            {
+                messaging.SendEmailResult [] result = messaging.SendEmail(lstmail);
+            }
+        }
+    }
+    public static void CreateHrManagerRecords(integer maxrecords)
+    {
+        list<HR_Manager__C> Hrrecordstoinsert = new list<HR_Manager__c>();
+        if(maxrecords>0)
+        {
+            for(integer counter = 1; counter<= maxrecords; counter++)
+            {
+                HR_Manager__c hr = new HR_Manager__C();
+                hr.Name = 'Sruthi';
+                hr.Email_ID__c = 'sruthi@gmail.com';
+                hr.HR_phone_number__c = '4087079408';
+                hr.PAN_Number__c ='cdbbi4563r';
+                hr.Location__c = 'vijayawada';
+                hrrecordstoinsert.add(hr);
+            }
+            if(!Hrrecordstoinsert.isempty())
+            {
+                insert hrrecordstoinsert;
+                sendmailstoHr(hrrecordstoinsert);
+            }
+        }
+    }
+	public static void CreatenewleadRecord(integer Maxrecords)
+    {
+        list<lead> leadstoinsert = new list<lead>();
+        if(maxrecords>0)
+        {
+            for(integer counter = 1; counter<= maxrecords; counter++)
+            {
+                lead ld = new lead();
+                ld.FirstName = 'rohit';
+                ld.LastName = 'kondaMan'+counter;
+                ld.Email = 'rohitKOnadaMan'+counter+'@gmail.com';
+                ld.Company = 'Adecco Consulting Srl';
+                ld.Status = 'open-not Contacted';
+                ld.Title = 'Annam KOnda';
+                ld.Phone = '7799';
+                ld.Fax = '33445';
+                ld.Website = 'www.rohitkonda.com';
+                ld.Rating = 'hot';
+                ld.Industry = 'Technology';
+                leadstoinsert.add(ld);
+                
+            }
+            if(!leadstoinsert.isempty())
+            {
+                insert leadstoinsert;
+                // invoke the method to send email alerts
+                SendEmailalertToLead(leadstoinsert); 
+            }
+        }
+    }
+    public static void SendEmailalertToLead(list<lead> lstleads)
+    {
+        // create a list collection to add  multiple lead people email notification 
+        list<messaging.SingleEmailMessage> lstemails = new list<messaging.SingleEmailMessage>();
+        
+        if(!lstleads.isempty())
+        {
+            for(lead ld : lstleads)
+            {
+                // prepare the email notification
+                messaging.SingleEmailMessage email = new messaging.SingleEmailMessage();
+                string[] settoaddress = new string[]{ld.Email, 'manikantha.b4@gmail.com'};
+                    email.setToAddresses(settoaddress);
+               // string[] ccaddress = new string[]{ld.Email, 'kavartapur@gmail.com'};
+                   // email.setCcAddresses(ccaddress);
+                //string[] bccaddress = new string []{ld.email, 'surendra.babu.3573@gmail.com'};
+                  //  email.setBccAddresses(bccaddress);
+                
+                email.setSenderDisplayName('Bala Uthama Villain');
+                email.setReplyTo('bhookya.1774564@studenti.uniroma1.it');
+                email.setSubject('congratulation'+ld.FirstName+ ' '+ ld.LastName+''+ 'your lead has been created');
+                string emailcontent = 'dear'+ ld.FirstName+ ''+ld.LastName+',<br/><br/>'+
+                    					'Thnaks for becoming big konda we love you <br/><br/>'+
+                    						'we Pleased to inform we hace creadted a lead reocrd with your name.<br/><br/>'+
+                    				 'here are your details.... <br/><br/>'+
+                    					'your lead record ID is..'+ld.id+
+                    					'<br/> lead name....'+ld.FirstName+''+ld.LastName+''+
+                    					'<br/> companyname is...'+ld.Company+
+                    					'<br/> lead status is...'+ld.Status+
+                    					'<br/> lead email id is...'+ld.Email+
+                    					'<br/> lead contact number....'+ld.Phone+
+                    					'<br/> lead indsutry name is...'+ld.Industry+
+                    				'<br/><br/> plese contact below address, if any quires, i will contact you shortyl.<br/><br/>'+
+                    'this is autogenetated mail dont reply <br/><br/> thanks and regards , <br/> The Uthma Villain Team';
+                email.setHtmlBody(emailcontent);
+                
+                // prepare a list collection to add attachments
+                list<messaging.EmailFileAttachment> lstattachments = new list<messaging.EmailfileAttachment>();
+                
+                // prepare attachment
+                messaging.EmailFileAttachment attach = new messaging.EmailFileAttachment();
+                attach.setContentType('application/pdf');
+                attach.setFileName(ld.FirstName+ld.LastName);
+                attach.setBody(blob.toPdf(emailcontent));
+                lstattachments.add(attach);
+                
+                // add the atachments to the email
+                email.setFileAttachments(lstattachments);
+                // add email notification to collection 
+                lstemails.add(email);
+            }
+            if(!lstemails.isempty())
+            {
+                messaging.SendEmailResult[] result = messaging.sendEmail(lstemails);
+            }
+        }
+    }
+}
